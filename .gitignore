@@ -1,5 +1,14 @@
 venv/
 db.sqlite3
 .env
+.DS_store
 .vscode/
-.DS_Store
+htmlcov/
+.coverage
+*.md
+__pycache__
+*.md
+private.key
+*.key
+config.json
+local_settings.py
