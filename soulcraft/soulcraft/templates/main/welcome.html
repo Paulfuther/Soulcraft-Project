@@ -1,0 +1,97 @@
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Our Site</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .profile-img {
+            width: 100px; /* Control the size of the image */
+            height: 100px; /* Control the size of the image */
+            object-fit: cover; /* Prevent distortion */
+            border-radius: 50%; /* Make it round */
+        }
+        .max-container {
+            max-width: 720px; /* Makes the overall content more narrow */
+        }
+        .contact-info {
+            background-color: #f8f9fa; /* A light grey background */
+            border-radius: 5px; /* Rounded corners */
+            padding: 15px; /* Some padding */
+            margin-top: 20px; /* Space between the image and the box */
+        }
+    </style>
+</head>
+<body>
+
+{% block content %}
+<div class="container mt-4 max-container">
+    <div class="row">
+        <div class="col-md-4 order-md-2 d-flex flex-column align-items-center">
+            <img src="{% static 'paul.jpeg' %}" class="profile-img mb-3" alt="Responsive image">
+            <div class="contact-info text-start">
+                <h5>Contact Us</h5>
+                <p>
+                    <strong>Address:</strong><br>
+                    185 Berkshire Dr.<br>
+                    Unit 704<br>
+                    London, On.<br>
+                    N6J-3R6<br>
+                    <strong>Phone:</strong> <br>
+                    (123) 456-7890
+                    <hr> <!-- Optional: adds a thematic break between contact info and links -->
+                    <p>Learn more about our partners:</p>
+                    <p><a href="https://www.twilio.com/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                        <div style="display: flex; align-items: center;">
+                            <img src="{% static 'twilio.svg' %}" alt="Twilio" style="width: 100px; height: auto;">
+                            <span style="margin-left: 10px;">Twilio</span>
+                        </div>
+                    </a></p>
+                    <p><a href="https://www.docusign.com/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                        <div style="display: flex; align-items: center;">
+                            <img src="{% static 'docusign.svg' %}" alt="DocuSign" style="width: 100px; height: auto;">
+                            <span style="margin-left: 10px;">DocuSign</span>
+                        </div>
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-8">
+          
+            <h2>Welcome to Our Company</h2>
+            1830489 Ontario Inc.<br>
+            <br>
+            <p>We're driving small businesses forward with digital transformation. Specializing in document management and streamlined messaging solutions, we empower you to reach your team and customers more effectively. Whether through email, bulk text, or the upcoming WhatsApp integration, communication has never been simpler.</p>
+            <p>Discover how direct messaging can personalize your customer interactions and how leveraging platforms like WhatsApp can expand your reach. Say goodbye to cumbersome paperwork with our partnership with DocuSign, bringing you cutting-edge electronic documentation.</p>
+            <p>Transform your business with our innovative messaging and document management solutions. Experience the future of business communication today.</p>
+            <p>Ready to take the next step? Fill out the form below to reach out to us. Let's discuss how we can help your business thrive.</p>
+            <div class="mt-4">
+                <!-- Display messages -->
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+       
+    </div>
+</div>
+{% endblock %}
+
+<!-- Bootstrap 5 JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
