@@ -132,7 +132,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
+#CELERY_RESULT_BACKEND = "django-db"
 
+
+BROKER_URL = os.environ.get("CLOUDAMQP_URL")
+
+EMAIL_BACKEND = "arl.msg.helpers.SendGridEmailBackend"
 TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
 TWILIO_FROM = os.environ.get("TWILIO_FROM")
