@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SendGrid Event Data</title>
+</head>
+<body>
+    <h1>Fetch SendGrid Events</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Get Events</button>
+    </form>
+    <hr>
+    {% if events %}
+        <h2>Events:</h2>
+        <pre>{{ events|safe }}</pre> <!-- This is a simple way to display the JSON. You might want to iterate over it and format it more nicely depending on your needs. -->
+    {% endif %}
+</body>
+</html>

@@ -18,6 +18,6 @@ class HomePageView(FormView):
 
         send_email_task.delay(to_email, body)
 
-        messages.success(self.request, "Email sending initiated!")
+        messages.success(self.request, "Thank you for your enquiry!")
 
         return super().form_valid(form)
