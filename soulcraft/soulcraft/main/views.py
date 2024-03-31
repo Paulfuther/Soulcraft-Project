@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
+#from django.utils.decorators import method_decorator
 from django.views.generic import FormView
-from django_ratelimit.decorators import ratelimit
+#from django_ratelimit.decorators import ratelimit
 
 from soulcraft.msg.helpers import create_single_email
 from soulcraft.tasks import send_email_task
