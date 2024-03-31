@@ -1,11 +1,6 @@
 import base64
-import json
 
-#from celery.utils.log import get_task_logger
 from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.db.models import Q
-from django.http import HttpResponse
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import (
     Attachment,
@@ -18,8 +13,6 @@ from sendgrid.helpers.mail import (
 )
 from twilio.base.exceptions import TwilioException
 from twilio.rest import Client
-
-
 
 account_sid = settings.TWILIO_ACCOUNT_SID
 auth_token = settings.TWILIO_AUTH_TOKEN
@@ -37,7 +30,7 @@ sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
 def create_single_email(
     to_email, body, attachment_buffer=None, attachment_filename=None
 ):
-    subject = 'received from website'
+    subject = "received from website"
     message = Mail(
         from_email=settings.MAIL_DEFAULT_SENDER,
         to_emails=to_email,
@@ -66,6 +59,7 @@ def create_single_email(
         print("Failed to send email. Error code:", response.status_code)
         return False
 
+
 def send_sms(phone_number, body):
     try:
         message = client.messages.create(
@@ -77,3 +71,24 @@ def send_sms(phone_number, body):
     except Exception as e:
         print("Failed to send SMS:", str(e))
     return None
+
+
+def _get_twilio_verify_client():
+    return Client(account_sid, auth_token).verify.services(twilio_verify_sid)
+
+
+def request_verification_token(phone):
+    verify = _get_twilio_verify_client()
+    try:
+        verify.verifications.create(to=phone, channel="sms")
+    except TwilioException:
+        verify.verifications.create(to=phone, channel="call")
+
+
+def check_verification_token(phone, token):
+    verify = _get_twilio_verify_client()
+    try:
+        result = verify.verification_checks.create(to=phone, code=token)
+    except TwilioException:
+        return False
+    return result.status == "approved"
