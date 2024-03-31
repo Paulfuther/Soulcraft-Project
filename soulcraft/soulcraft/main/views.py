@@ -10,7 +10,7 @@ from soulcraft.tasks import send_email_task
 from .forms import ContactForm
 
 
-@method_decorator(ratelimit(key="ip", rate="5/s", method="GET"), name="dispatch")
+#@method_decorator(ratelimit(key="ip", rate="5/s", method="GET"), name="dispatch")
 class HomePageView(FormView):
     template_name = "main/welcome.html"
     form_class = ContactForm
