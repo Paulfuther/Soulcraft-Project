@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SendGrid Stats</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-left: auto;  /* Center the table */
+            margin-right: auto; /* Center the table */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>SendGrid Email Stats</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Metrics</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for day in stats_data %}
+                <tr>
+                    <td>{{ day.date }}</td>
+                    <td>
+                        <ul>
+                            {% for stat in day.stats %}
+                                {% for metric, value in stat.metrics.items %}
+                                    <li>{{ metric }}: {{ value }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+
+
+

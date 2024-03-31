@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    justify-content: center; /* Center children horizontally */
+}
+.col-md-6 {
+    flex: 0 1 auto; /* Allows the column to shrink/grow as needed */
+}
+     /* Adjusted submit button styling for a smaller size */
+.btn-primary {
+    background-color: #007bff; /* Primary color */
+    border-color: #007bff; /* Border color */
+    color: white; /* Text color */
+    padding: 5px 15px; /* Smaller padding */
+    font-size: 16px; /* Smaller font size */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 123, 255, .5); /* Subtle shadow for depth */
+    transition: all 0.2s ease-in-out; /* Smooth transition for hover effects */
+}
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #0056b3; /* Darker shade on hover/focus */
+    border-color: #0056b3;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, .5); /* More pronounced shadow on hover/focus */
+}
