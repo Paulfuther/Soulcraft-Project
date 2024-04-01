@@ -1,0 +1,58 @@
+{% extends "admin/base.html" %}
+{% block title %}Email Stats{% endblock %}
+{% block extrastyle %}
+<style>
+    .report-container {
+        width: 80%;
+        margin: auto;
+        /* Center the container */
+    }
+
+    table {
+        width: 100%;
+        /* Make table take full width of its container */
+        margin-top: 20px;
+    }
+
+    th,
+    td {
+        text-align: left;
+        /* Center table text */
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+            <h1 class="display-6 mb-2 mt-4 text-center">Email Stats</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Metrics</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for day in stats_data %}
+                    <tr>
+                        <td>{{ day.date }}</td>
+                        <td>
+                            <ul>
+                                {% for stat in day.stats %}
+                                {% for metric, value in stat.metrics.items %}
+                                <li>{{ metric }}: {{ value }}</li>
+                                {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
