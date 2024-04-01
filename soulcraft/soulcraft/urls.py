@@ -18,3 +18,4 @@ urlpatterns = [
 
 handler403 = "soulcraft.views.error_403"
 handler500 = "soulcraft.views.error_500"
+handler404 = "soulcraft.views.error_404"
