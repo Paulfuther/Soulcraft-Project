@@ -2,11 +2,12 @@ from django.contrib import admin
 from django.urls import include, path
 
 from soulcraft.user.views import CustomAdminLoginView
+from soulcraft.user.admin import admin_site
 
 admin.site.login = CustomAdminLoginView.as_view()
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin/", admin_site.urls),
     path("", include("soulcraft.main.urls")),
     path("", include("soulcraft.msg.urls")),
     path("", include("soulcraft.user.urls")),
