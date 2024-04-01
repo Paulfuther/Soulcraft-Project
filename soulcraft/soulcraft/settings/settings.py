@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "soulcraft.profiles",
     "soulcraft.user",
+    "soulcraft.error_logging",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'soulcraft.error_logging.middleware.ErrorLoggingMiddleware',
 ]
 
 ROOT_URLCONF = "soulcraft.urls"
