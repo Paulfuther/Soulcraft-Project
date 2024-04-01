@@ -43,3 +43,7 @@ def fetch_sendgrid_messages(request):
     response = sg.client.messages.get(query_params=params)
     print(response.status_code)
     print(response.body)
+
+
+def tobacco_vape_compliance(request):
+    return render(request, "msg/tobacco_vape_compliance.html")
