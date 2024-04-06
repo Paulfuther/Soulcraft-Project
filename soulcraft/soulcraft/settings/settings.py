@@ -137,7 +137,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 #AUTH_USER_MODEL = 'user.CustomUser'
 BROKER_URL = os.environ.get("CLOUDAMQP_URL")
 
-EMAIL_BACKEND = "arl.msg.helpers.SendGridEmailBackend"
+#EMAIL_BACKEND = "arl.msg.helpers.SendGridEmailBackend"
 TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
 TWILIO_FROM = os.environ.get("TWILIO_FROM")
