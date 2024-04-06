@@ -138,7 +138,7 @@ class CustomAdminLoginView(LoginView):
             return redirect(reverse("custom_admin_login"))
 
 
-# @staff_member_required
+@staff_member_required
 def custom_admin_view(request):
     sg = SendGridAPIClient(os.environ.get("SENDGRID_API_KEY"))
 
