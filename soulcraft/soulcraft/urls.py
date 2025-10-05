@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.urls import include, path
-
 from soulcraft.user.views import CustomAdminLoginView
 
 admin.site.login = CustomAdminLoginView.as_view()
@@ -13,6 +12,7 @@ urlpatterns = [
     path("", include("soulcraft.main.urls")),
     path("", include("soulcraft.msg.urls")),
     path("", include("soulcraft.user.urls")),
+    
 ]
 
 

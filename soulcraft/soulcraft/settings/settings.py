@@ -147,6 +147,7 @@ SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 MAIL_DEFAULT_SENDER = os.environ.get("MAIL_DEFAULT_SENDER")
 SENDGRID_NEWHIRE_ID = os.environ.get("SENDGRID_NEWHIRE_ID")
 SENDGRID_NEW_HIRE_FILE_ID = os.environ.get("SENDGRID_NEW_HIRE_FILE_ID")
+CONTACT_TO_EMAIL = "paul.futher@1830489ontarioinc.com"
 
 try:
     from .local_settings import *

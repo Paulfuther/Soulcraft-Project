@@ -5,7 +5,8 @@ from soulcraft.msg.helpers import create_single_email
 
 
 @app.task(name="send_email")
-def send_email_task(to_email, body, attachment_buffer=None, attachment_filename=None):
+def send_email_task(to_email, body, attachment_buffer=None,
+                    attachment_filename=None):
     try:
         create_single_email(
             to_email, body, attachment_buffer=None, attachment_filename=None
