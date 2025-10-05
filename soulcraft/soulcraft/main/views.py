@@ -1,28 +1,37 @@
 from django.contrib import messages
-from django.urls import reverse_lazy
-# from django.utils.decorators import method_decorator
-from django.views.generic import FormView
-# from django_ratelimit.decorators import ratelimit
+from django.shortcuts import redirect, render
 
 from soulcraft.msg.helpers import create_single_email
-# from soulcraft.tasks import send_email_task
 
-from .forms import ContactForm
+from soulcraft.forms import ContactForm
 
 
-# @method_decorator(ratelimit(key="ip", rate="5/s", method="GET"), name="dispatch")
-class HomePageView(FormView):
-    template_name = "main/welcome.html"
-    form_class = ContactForm
-    success_url = reverse_lazy("home")  # Redirect to home page upon success
+def _handle_contact_post(request, redirect_name, topic_default=None):
+    form = ContactForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        data = form.cleaned_data
+        if topic_default and not data.get("topic"):
+            data["topic"] = topic_default
+        try:
+            print("data :", data)
+            create_single_email(data)
+            messages.success(request, "Thanks — we’ll get back to you shortly.")
+        except Exception as e:
+            messages.error(request, f"Sorry, your message could not be sent. ({e})")
+        return redirect(redirect_name)
+    return form
 
-    def form_valid(self, form):
-        to_email = form.cleaned_data["to_email"]
-        body = form.cleaned_data["body"]
 
-        # send_email_task.delay(to_email, body)
-        create_single_email(to_email, body)
+def home(request):
+    form = _handle_contact_post(request, "home")
+    return render(request, "main/home.html", {"form": form})
 
-        messages.success(self.request, "Thank you for your enquiry!")
 
-        return super().form_valid(form)
+def services(request):
+    form = _handle_contact_post(request, "services", topic_default="services")
+    return render(request, "main/services.html", {"form": form})
+
+
+def platform(request):
+    form = _handle_contact_post(request, "platform", topic_default="platform")
+    return render(request, "main/platform.html", {"form": form})

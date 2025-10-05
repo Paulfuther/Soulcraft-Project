@@ -1,0 +1,159 @@
+{% extends "../base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Carwash Services — 1830489 Ontario Inc.{% endblock %}
+
+{% block content %}
+<head>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "1830489 Ontario Inc. — Carwash Maintenance & Training",
+  "url": "https://1830489ontarioinc.com/services/",
+  "telephone": "+1-519-670-7469",
+  "image": "https://1830489ontarioinc.com/static/paul.jpeg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "185 Berkshire Dr., Unit 704",
+    "addressLocality": "London",
+    "addressRegion": "ON",
+    "postalCode": "N6J 3R6",
+    "addressCountry": "CA"
+  },
+  "areaServed": [
+    { "@type": "AdministrativeArea", "name": "Southern Ontario" }
+  ],
+  "priceRange": "$$",
+  "serviceType": [
+    "Carwash diagnostics",
+    "Preventive maintenance",
+    "Operator training",
+    "Claim handling & documentation",
+    "Equipment optimization"
+  ],
+  "sameAs": [
+    "https://www.twilio.com/",
+    "https://www.docusign.com/"
+  ]
+}
+</script>
+</head>
+<div class="container my-5" style="max-width:1080px;">
+  <header class="mb-4">
+    <a href="/" class="text-decoration-none">&larr; Back to Home</a>
+    <h1 class="h2 fw-semibold mt-2">Carwash Maintenance, Diagnostics & Training</h1>
+    <p class="text-muted mb-0">Field services for Petro-Canada and similar carwash operations across Southern Ontario.</p>
+  </header>
+
+  <section class="row g-4">
+    <div class="col-lg-8">
+      <div class="p-4 bg-white border rounded-3">
+        <h2 class="h4 fw-semibold">What we do</h2>
+        <p>
+          We deliver reliable, process-driven technical support for carwash locations.
+          Our focus is uptime, safety, and clear communication with operators.
+        </p>
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="mb-3">
+              <li>Diagnostics & troubleshooting</li>
+              <li>Preventive maintenance scheduling</li>
+              <li>Minor maintenance & optimization</li>
+              <li>Operator training & onboarding</li>
+              <li>Claim handling & documentation</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="mb-3">
+              <li>Parts recommendations & sourcing</li>
+              <li>Incident response & reporting</li>
+              <li>Multi-site support strategies</li>
+              <li>Uptime and cost tracking</li>
+              <li>Clear service reports</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2 class="h5 fw-semibold mt-3">How we work</h2>
+        <ul>
+          <li><strong>Response & communication:</strong> fast diagnostics with simple, transparent updates.</li>
+          <li><strong>Process first:</strong> repeatable checklists so fixes stick and issues don’t recur.</li>
+          <li><strong>Documentation:</strong> photos, notes, and reports that back every job we do.</li>
+        </ul>
+      </div>
+
+      <div class="p-4 bg-white border rounded-3 mt-4">
+        <h3 class="h5 fw-semibold">FAQ</h3>
+        <div class="accordion" id="servicesFaq">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="q1">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a1">
+                What areas do you cover?
+              </button>
+            </h2>
+            <div id="a1" class="accordion-collapse collapse show" data-bs-parent="#servicesFaq">
+              <div class="accordion-body">
+                Petro-Canada and similar sites across Southern Ontario. Ask for availability if you’re outside this region.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="q2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a2">
+                Do you offer training?
+              </button>
+            </h2>
+            <div id="a2" class="accordion-collapse collapse" data-bs-parent="#servicesFaq">
+              <div class="accordion-body">
+                Yes — operator onboarding, safety practices, preventive routines, and basic diagnostics techniques.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="q3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a3">
+                Can you help with claims and incident documentation?
+              </button>
+            </h2>
+            <div id="a3" class="accordion-collapse collapse" data-bs-parent="#servicesFaq">
+              <div class="accordion-body">
+                Absolutely. We’ll collect evidence, document findings, and prepare clear reports that support your claim process.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <aside class="col-lg-4">
+      <div class="p-4 bg-light border rounded-3">
+        <h2 class="h5 fw-semibold">Service Request</h2>
+        <p class="small text-muted">Tell us about your location(s) and issue. We’ll respond quickly.</p>
+
+        <!-- Flash messages -->
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} small" role="alert">{{ message }}</div>
+        {% endfor %}
+
+        <!-- Optional: reuse your existing contact form -->
+        <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary w-100">Request Service</button>
+        </form>
+
+        <hr>
+        <div class="small">
+          <strong>Phone:</strong> (519) 670-7469<br>
+          <strong>Mailing:</strong> 185 Berkshire Dr., Unit 704, London, ON N6J 3R6
+        </div>
+      </div>
+    </aside>
+  </section>
+</div>
+{% endblock %}

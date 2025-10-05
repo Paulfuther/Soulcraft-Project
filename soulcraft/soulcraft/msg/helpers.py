@@ -1,16 +1,8 @@
-import base64
 
 from django.conf import settings
+from django.utils.html import escape
 from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import (
-    Attachment,
-    ContentId,
-    Disposition,
-    FileContent,
-    FileName,
-    FileType,
-    Mail,
-)
+from sendgrid.helpers.mail import Email, Mail
 from twilio.base.exceptions import TwilioException
 from twilio.rest import Client
 
@@ -27,36 +19,78 @@ sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
 # whatsapp message
 
 
-def create_single_email(
-    to_email, body, attachment_buffer=None, attachment_filename=None
-):
-    subject = "received from website"
-    message = Mail(
-        from_email=settings.MAIL_DEFAULT_SENDER,
-        to_emails=to_email,
-        subject=subject,
-        html_content=body,
-    )
-    if attachment_buffer and attachment_filename:
-        # Create an attachment
-        attachment = Attachment()
-        attachment.file_content = FileContent(
-            base64.b64encode(attachment_buffer.read()).decode()
+def create_single_email(data):
+    """
+    Send a contact email using a dict from ContactForm.cleaned_data.
+    Expected keys: name, email, subject, message, topic.
+    Includes try/except to catch and log SendGrid issues.
+    """
+    try:
+        # --- Extract and sanitize form data ---
+        name = data.get("name", "").strip()
+        from_email = data.get("email", "").strip()
+        subject_input = data.get("subject", "Website inquiry").strip()
+        topic = data.get("topic", "general").lower()
+        message = data.get("message", "")
+
+        topic_labels = {
+            "services": "Carwash Services",
+            "platform": "Platform / Demo",
+            "general": "General",
+        }
+        topic_label = topic_labels.get(topic, "General")
+        subject = f"[{topic_label}] {subject_input}"
+
+        # --- Escape & format message content ---
+        safe_message = escape(message).replace("\n", "<br>")
+        safe_name = escape(name)
+        safe_from_email = escape(from_email)
+        safe_topic = escape(topic_label)
+        safe_subject = escape(subject_input)
+
+        html_body = (
+            f"<p><strong>New website inquiry</strong></p>"
+            f"<p>"
+            f"<strong>Name:</strong> {safe_name}<br>"
+            f"<strong>Email:</strong> {safe_from_email}<br>"
+            f"<strong>Topic:</strong> {safe_topic}<br>"
+            f"<strong>Subject:</strong> {safe_subject}"
+            f"</p>"
+            f"<p><strong>Message:</strong><br>{safe_message}</p>"
         )
-        attachment.file_name = FileName(attachment_filename)
-        attachment.file_type = FileType("application/pdf")
-        attachment.disposition = Disposition("attachment")
-        attachment.content_id = ContentId("Attachment")
 
-        # Add the attachment to the message
-        message.attachment = attachment
+        # --- Recipient setup ---
+        to_email = getattr(settings, "CONTACT_TO_EMAIL", None)
+        if not to_email:
+            raise ValueError("CONTACT_TO_EMAIL is not defined in settings.py")
 
-    response = sg.send(message)
-    # Handle the response and return an appropriate value based on your requirements
-    if response.status_code == 202:
+        # --- Build SendGrid Mail object ---
+        mail = Mail(
+            from_email=settings.MAIL_DEFAULT_SENDER,
+            to_emails=to_email,
+            subject=subject,
+            html_content=html_body,
+        )
+
+        if from_email:
+            mail.reply_to = Email(from_email, name or None)
+
+        # --- Send via SendGrid ---
+        print("📧 Sending email to:", to_email)
+        sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
+        response = sg.send(mail)
+
+        print("📬 SendGrid response code:", response.status_code)
+        print("📬 SendGrid response body:", response.body)
+        print("📬 SendGrid response headers:", response.headers)
+
+        if response.status_code != 202:
+            raise Exception(f"SendGrid failed with status {response.status_code}")
+
         return True
-    else:
-        print("Failed to send email. Error code:", response.status_code)
+
+    except Exception as e:
+        print("❌ Error sending email:", e)
         return False
 
 

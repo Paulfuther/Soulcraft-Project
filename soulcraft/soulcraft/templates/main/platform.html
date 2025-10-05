@@ -1,0 +1,160 @@
+{% extends "../base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}The Platform — 1830489 Ontario Inc.{% endblock %}
+
+{% block content %}
+
+<head>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "1830489 Platform — Compliance, Documentation & Communication",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "url": "https://1830489ontarioinc.com/platform/",
+  "creator": {
+    "@type": "Organization",
+    "name": "1830489 Ontario Inc.",
+    "url": "https://1830489ontarioinc.com/"
+  },
+  "featureList": [
+    "Incident forms with photos → PDF",
+    "Dynamic checklists with N/A states",
+    "DocuSign templates & envelopes",
+    "Event-driven SMS/Email notifications",
+    "Searchable audit-ready records",
+    "Multi-location reporting (Celery)"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "CAD",
+    "description": "Contact for demo and pricing."
+  }
+}
+</script>
+</head>
+
+<div class="container my-5" style="max-width:1080px;">
+  <header class="mb-4">
+    <a href="/" class="text-decoration-none">&larr; Back to Home</a>
+    <h1 class="h2 fw-semibold mt-2">The Platform: Due Diligence Made Visible</h1>
+    <p class="text-muted mb-0">Compliance, documentation, and communication — built from real field experience.</p>
+  </header>
+
+  <section class="row g-4">
+    <div class="col-lg-8">
+      <div class="p-4 bg-white border rounded-3">
+        <h2 class="h4 fw-semibold">What it does</h2>
+        <p>
+          The platform turns operational work into clear, auditable records. Document incidents,
+          complete checklists with photos, trigger notifications, and export proof — all in one place.
+        </p>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="fw-semibold">Modules</h6>
+            <ul class="mb-3">
+              <li>Incident forms & photo uploads → PDF</li>
+              <li>Checklists (dynamic items, N/A handling)</li>
+              <li>Employee files & DocuSign templates</li>
+              <li>Store logs (salt logs, pump-outs, shifts)</li>
+              <li>Search across records (natural language)</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6 class="fw-semibold">Automations</h6>
+            <ul class="mb-3">
+              <li>Event-driven email/SMS (Twilio, SendGrid)</li>
+              <li>Scheduled reports (Celery + Beat)</li>
+              <li>Webhook integrations (DocuSign)</li>
+              <li>Cloud storage (S3-compatible)</li>
+              <li>PDF generation & monthly summaries</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2 class="h5 fw-semibold mt-2">Why it helps</h2>
+        <ul class="mb-0">
+          <li><strong>Proves due diligence:</strong> time-stamped records with attachments and signatures.</li>
+          <li><strong>Saves time:</strong> fewer emails, fewer spreadsheets, less chasing.</li>
+          <li><strong>Standardizes:</strong> consistent process across locations and teams.</li>
+          <li><strong>Built by practitioners:</strong> workflows shaped by field realities.</li>
+        </ul>
+      </div>
+
+      <div class="p-4 bg-white border rounded-3 mt-4">
+        <h3 class="h5 fw-semibold">FAQ</h3>
+        <div class="accordion" id="platformFaq">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="pq1">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#pa1">
+                Is this ready for multi-location businesses?
+              </button>
+            </h2>
+            <div id="pa1" class="accordion-collapse collapse show" data-bs-parent="#platformFaq">
+              <div class="accordion-body">
+                Yes. It’s designed for multi-site operations — standardized templates, employer-scoped data, and scheduled reports.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="pq2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pa2">
+                What integrations are supported?
+              </button>
+            </h2>
+            <div id="pa2" class="accordion-collapse collapse" data-bs-parent="#platformFaq">
+              <div class="accordion-body">
+                DocuSign (templates/envelopes), Twilio (SMS/WhatsApp), SendGrid (templated emails), and S3-compatible storage providers.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="pq3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pa3">
+                Can you customize modules or add new workflows?
+              </button>
+            </h2>
+            <div id="pa3" class="accordion-collapse collapse" data-bs-parent="#platformFaq">
+              <div class="accordion-body">
+                Yes. We can tailor forms, automations, and dashboards to your operations. Let us know your use-case.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <aside class="col-lg-4">
+      <div class="p-4 bg-light border rounded-3">
+        <h2 class="h5 fw-semibold">Request a Walkthrough</h2>
+        <p class="small text-muted">We’ll show a short demo and discuss fit, pricing, and rollout.</p>
+
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} small" role="alert">{{ message }}</div>
+        {% endfor %}
+
+        <!-- Reuse your contact form object if you want -->
+        <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary w-100">Request Demo</button>
+        </form>
+
+        <hr>
+        <div class="small">
+          <strong>Tech stack:</strong> Django, DRF, Celery, Twilio, SendGrid, S3-compatible storage.<br>
+          <strong>Security:</strong> employer-scoped data, OAuth integrations, webhook signing.
+        </div>
+      </div>
+    </aside>
+  </section>
+</div>
+{% endblock %}

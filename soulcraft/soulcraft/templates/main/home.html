@@ -1,0 +1,186 @@
+{% extends "../base/base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block title %}1830489 Ontario Inc. — Field Services & Platform{% endblock %}
+
+{% block extra_head %}
+<style>
+  /* page-local styles */
+  .max-container { max-width: 1080px; }
+  .hero {
+    background: linear-gradient(180deg, #0e0f12 0%, #1b1f28 100%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 48px 24px;
+    margin-bottom: 1.75rem;
+  }
+  .shadow-soft { box-shadow: 0 10px 25px rgba(0,0,0,.08); border-radius: 16px; }
+  .profile-img {
+    width: 120px; height: 120px; object-fit: cover; border-radius: 50%;
+    display: block; margin: 0 auto;
+  }
+  @media (min-width: 992px) { .sticky-col { position: sticky; top: 24px; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="container max-container my-4">
+
+  <!-- HERO -->
+  <section class="hero shadow-soft">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <div class="text-uppercase small opacity-75">Real-world reliability × Smart systems</div>
+        <h1 class="display-6 fw-semibold mt-2 mb-3">
+          Carwash Maintenance & Training • Compliance & Communication Platform
+        </h1>
+        <p class="lead mb-4">
+          We keep Petro-Canada carwashes running — and we build software that proves due diligence:
+          clear records, automated alerts, and documentation that stands up to scrutiny.
+        </p>
+        <div class="d-flex gap-2 flex-wrap">
+          <a href="{% url 'services' %}" class="btn btn-outline-light btn-sm">Carwash Services</a>
+          <a href="{% url 'platform' %}" class="btn btn-outline-light btn-sm">Explore the Platform</a>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="bg-white text-dark p-3 p-lg-4 shadow-soft h-100">
+          <h5 class="fw-semibold mb-3">What we do</h5>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2">Diagnostics & preventive maintenance</li>
+            <li class="mb-2">Operator training & claim handling</li>
+            <li class="mb-2">Digital documentation & audit-ready trails</li>
+            <li>Event-driven comms (Twilio, SendGrid)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TWO-COLUMN BODY -->
+  <div class="row g-4">
+    <!-- Sidebar -->
+    <aside class="col-lg-4 order-lg-2">
+      <div class="sticky-col">
+        <div class="text-center mb-3">
+          <img src="{% static 'paul.jpeg' %}" class="profile-img mb-2" alt="Profile photo">
+          <div class="small text-muted">Founder & Lead Technician</div>
+        </div>
+
+        <div id="contact" class="p-3 p-lg-4 bg-light border rounded-3 shadow-sm">
+          <h5 class="fw-semibold">Contact</h5>
+          <address class="mb-1">
+            <strong>1830489 Ontario Inc.</strong><br>
+            185 Berkshire Dr., Unit 704<br>
+            London, ON N6J 3R6<br>
+          </address>
+          <div class="mb-2"><strong>Phone:</strong> (519) 670-7469</div>
+          <hr>
+          <p class="mb-2">Technology we work with:</p>
+          <p class="mb-2">
+            <a class="text-decoration-none d-flex align-items-center" href="https://www.twilio.com/" target="_blank" rel="noopener">
+              <img src="{% static 'twilio.svg' %}" alt="Twilio" style="width: 100px; height: auto;">
+              <span class="ms-2">Twilio</span>
+            </a>
+          </p>
+          <p class="mb-0">
+            <a class="text-decoration-none d-flex align-items-center" href="https://www.docusign.com/" target="_blank" rel="noopener">
+              <img src="{% static 'docusign.svg' %}" alt="DocuSign" style="width: 100px; height: auto;">
+              <span class="ms-2">DocuSign</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main column -->
+    <section class="col-lg-8 order-lg-1">
+      <!-- Services -->
+      <section id="services" class="bg-white p-4 shadow-soft mb-4">
+        <h2 class="h3 fw-semibold">Carwash Maintenance, Diagnostics & Training</h2>
+        <p class="mb-3">
+          We support multiple Petro-Canada locations with dependable technical service. Diagnostics, minor
+          maintenance, operator training, and efficient claim management — all focused on uptime and practical results.
+        </p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded h-100">
+              <h6 class="fw-semibold mb-2">What we do</h6>
+              <ul class="mb-0">
+                <li>Diagnostics & troubleshooting</li>
+                <li>Preventive maintenance scheduling</li>
+                <li>Operator training & onboarding</li>
+                <li>Claim handling & documentation</li>
+                <li>Equipment optimization & reporting</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded h-100">
+              <h6 class="fw-semibold mb-2">Why it works</h6>
+              <ul class="mb-0">
+                <li>10+ years of hands-on delivery</li>
+                <li>Fast diagnostics, clear communication</li>
+                <li>Process-driven, due-diligence mindset</li>
+                <li>Flexible scheduling & reliable response</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3">
+          <a href="{% url 'services' %}" class="btn btn-primary">Request service</a>
+        </div>
+      </section>
+
+      <!-- Platform -->
+      <section id="platform" class="bg-white p-4 shadow-soft">
+        <h2 class="h3 fw-semibold">The Platform: Due Diligence Made Visible</h2>
+        <p class="mb-3">
+          Turn work into proof. Document incidents and checklists with photos, trigger notifications, and keep
+          audit-ready records across locations. Built with Django & Celery, integrated with Twilio and SendGrid.
+        </p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-3 border rounded h-100">
+              <h6 class="fw-semibold mb-2">Core capabilities</h6>
+              <ul class="mb-0">
+                <li>Incident & checklist workflows (photos → PDF)</li>
+                <li>Event-driven notifications (SMS, email, WhatsApp)</li>
+                <li>Employee files & DocuSign integration</li>
+                <li>Store logs (salt logs, pump-outs, shifts)</li>
+                <li>Searchable records for audits & compliance</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 border rounded h-100">
+              <h6 class="fw-semibold mb-2">Why it matters</h6>
+              <ul class="mb-0">
+                <li>Proves due diligence, not just process</li>
+                <li>Cuts admin time with automation</li>
+                <li>Standardizes records across locations</li>
+                <li>Built by people who do the work</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 d-flex gap-2">
+          <a href="{% url 'platform' %}" class="btn btn-outline-primary">Learn more</a>
+          <a href="{% url 'home' %}#contact-form" class="btn btn-primary">Request a walkthrough</a>
+        </div>
+      </section>
+
+      <!-- Contact form -->
+      <section id="contact-form" class="bg-white p-4 shadow-soft mt-4">
+        <h2 class="h4 fw-semibold mb-3">Get in touch</h2>
+        <p class="text-muted mb-3">Tell us about your location(s) or ask about the platform. We’ll respond quickly.</p>
+        <form method="post" class="mt-2">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </section>
+    </section>
+  </div>
+</main>
+{% endblock %}
