@@ -145,8 +145,14 @@
         <form method="post">
           {% csrf_token %}
           {{ form|crispy }}
-          <button type="submit" class="btn btn-primary w-100">Request Demo</button>
-        </form>
+        <div
+            class="cf-turnstile mb-3"
+            data-sitekey="{{ turnstile_site_key }}">
+        </div>
+        <button type="submit" class="btn btn-primary">
+            Send Message
+        </button>
+                </form>
 
         <hr>
         <div class="small">
@@ -157,4 +163,9 @@
     </aside>
   </section>
 </div>
+ <script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer
+></script>
 {% endblock %}
